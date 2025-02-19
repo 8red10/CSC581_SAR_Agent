@@ -28,6 +28,16 @@ class SARBaseAgent(AssistantAgent):
             "api_key": os.getenv("OPENAI_API_KEY"),
             "deployment_name": os.getenv("DEPLOYMENT_NAME")
         }]
+    
+    def query_gemini(self, prompt, model="gemini-pro", max_tokens=200):
+        """Query Google Gemini API and return response."""
+        import os
+        genai.configure(api_key=os.getenv("GEMINI_API_KEY"))
+        try:
+            response = genai.GenerativeModel(model).generate_content(prompt)
+            return response.text
+        except Exception as e:
+            return f"Error: {e}"
 
 @abstractmethod
 def process_request(self, message):
