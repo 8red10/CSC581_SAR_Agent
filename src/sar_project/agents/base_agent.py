@@ -1,5 +1,6 @@
 from autogen import AssistantAgent
 from abc import ABC, abstractmethod
+from google import generativeai as genai
 
 class SARBaseAgent(AssistantAgent):
     def __init__(self, name, role, system_message, knowledge_base=None):
