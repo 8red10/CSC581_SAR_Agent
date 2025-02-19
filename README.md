@@ -4,7 +4,7 @@
 
 A robust Python-based agent designed to provide automated first aid and emergency response guidance using Google's Gemini API. This tool is specifically designed for search and rescue operations, providing structured, reliable emergency medical guidance through natural language processing.
 
-The goal of this project is to develop an intelligent agent to support the AI4S&R project. The basis of this project is built upon Riley Froomin's GitHub repository (https://github.com/rcfroomin/sar_project). More details on the assignment as well as instructions for creating your own SAR agent to help with this project are included in the linked repository. 
+The basis of this project is built upon Riley Froomin's GitHub repository (https://github.com/rcfroomin/sar_project) with the goal of developing an intelligent agent to support the AI4S&R project. More details on the assignment as well as instructions for creating your own SAR agent to help with this project are included in the linked repository. 
 
 ## Important Notice
 
