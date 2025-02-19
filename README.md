@@ -13,42 +13,42 @@ This tool is designed to assist trained professionals and should not be used as 
 
 ## Agent Functionality
 
-### Scene Safety Assessment
+#### 1. Scene Safety Assessment
 
 - Analyzes scene descriptions for potential hazards
 - Provides structured safety recommendations
 - Identifies environmental and situational risks
 - Generates clear safety precautions
 
-### Multiple Casualty Triage
+#### 2. Multiple Casualty Triage
 
 - Implements START (Simple Triage and Rapid Treatment) protocol
 - Prioritizes casualties based on severity
 - Provides structured triage levels (Red/Yellow/Green/Black)
 - Generates specific action recommendations
 
-### First Aid Guidance
+#### 3. First Aid Guidance
 
 - Step-by-step first aid instructions
 - Resource-aware recommendations based on available supplies
 - Clear warnings and contraindications
 - Monitoring guidelines
 
-### Vital Signs Monitoring
+#### 4. Vital Signs Monitoring
 
 - Analyzes vital sign data
 - Provides monitoring frequency recommendations
 - Defines alert thresholds
 - Considers medical history when available
 
-### Medical Handoff Reports
+#### 5. Medical Handoff Reports
 
 - Generates structured SBAR reports
 - Ensures critical information transfer
 - Includes relevant intervention history
 - Provides clear recommendations
 
-### Evacuation Guidance
+#### 6. Evacuation Guidance
 
 - Terrain-aware evacuation recommendations
 - Resource requirement specifications
