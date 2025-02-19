@@ -1,124 +1,61 @@
-# Search and Rescue (SAR) Agent Framework - CSC 581
+# Search and Rescue (SAR) First Aid Guidance Agent - CSC 581
 
 ## Introduction
 
-This framework is for CSC 581 students to develop intelligent agents supporting the AI4S&R project. Students can create specialized agents for various SAR roles such as those listed in this spreadsheet:
+A robust Python-based agent designed to provide automated first aid and emergency response guidance using Google's Gemini API. This tool is specifically designed for search and rescue operations, providing structured, reliable emergency medical guidance through natural language processing.
 
-https://docs.google.com/spreadsheets/d/1QZK5HAdDC-_XNui6S0JZTbJH5_PbYJTp8_gyhXmz8Ek/edit?usp=sharing
-https://docs.google.com/spreadsheets/d/11rBV9CbKNeQbWbaks8TF6GO7WcSUDS_-hAoH75UEkgQ/edit?usp=sharing
+The goal of this project is to develop an intelligent agent to support the AI4S&R project. The basis of this project is built upon Riley Froomin's GitHub repository (https://github.com/rcfroomin/sar_project). More details on the assignment as well as instructions for creating your own SAR agent to help with this project are included in the linked repository. 
 
-Each student or team will choose a specific role within the SAR ecosystem and implement an agent that provides decision support and automation for that role.
+## Important Notice
 
-## How to Submit
-Please submit a link to your clone of the repository to Canvas. 
-
-## Prerequisites
-
-- Python 3.8 or higher
-- pyenv (recommended for Python version management)
-- pip (for dependency management)
-
-## Setup and Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
-cd sar-project
-```
-
-2. Set up Python environment:
-```bash
-# Using pyenv (recommended)
-pyenv install 3.9.6  # or your preferred version
-pyenv local 3.9.6
-
-# Create and activate virtual environment
-python -m venv .venv
-source .venv/bin/activate  # On Unix/macOS
-# or
-.venv\Scripts\activate     # On Windows
-```
-
-3. Install dependencies:
-```bash
-pip install -r requirements.txt
-pip install -e .
-```
-
-4. Configure environment variables:
-
-#### OpenAI:
-- Obtain required API keys:
-  1. OpenAI API key: Sign up at https://platform.openai.com/signup
-- Update your `.env` file with the following:
-    ```
-    OPENAI_API_KEY=your_openai_api_key_here
-    ```
-#### Google Gemini:
-- Obtain required API keys:
-  1. ``` pip install google-generativeai ```
-  2. ``` import google.generativeai as genai ```
-  3. Google Gemini API Key: Obtain at https://aistudio.google.com/apikey
-- Configure with the following:
-  ```
-  genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
-  ```
-
-Make sure to keep your `.env` file private and never commit it to version control.
-
-## Project Structure
-
-```
-sar-project/
-├── src/
-│   └── sar_project/         # Main package directory
-│       └── agents/          # Agent implementations
-│       └── config/          # Configuration and settings
-│       └── knowledge/       # Knowledge base implementations
-├── tests/                   # Test directory
-├── pyproject.toml           # Project metadata and build configuration
-├── requirements.txt         # Project dependencies
-└── .env                     # Environment configuration
-```
-
-## Development
-
-This project follows modern Python development practices:
-
-1. Source code is organized in the `src/sar_project` layout
-2. Use `pip install -e .` for development installation
-3. Run tests with `pytest tests/`
-4. Follow the existing code style and structure
-5. Make sure to update requirements.txt when adding dependencies
+This tool is designed to assist trained professionals and should not be used as a replacement for professional medical judgment. Always defer to trained medical professionals and established protocols in emergency situations.
 
 
-## FAQ
+## Agent Functionality
 
-### Assignment Questions
+### Scene Safety Assessment
 
-**Q: How do I choose a role for my agent?**
+- Analyzes scene descriptions for potential hazards
+- Provides structured safety recommendations
+- Identifies environmental and situational risks
+- Generates clear safety precautions
 
-**A:** Review the list of SAR roles above and consider which aspects interest you most. Your agent should provide clear value to SAR operations through automation, decision support, or information processing.
+### Multiple Casualty Triage
 
-**Q: What capabilities should my agent have?**
+- Implements START (Simple Triage and Rapid Treatment) protocol
+- Prioritizes casualties based on severity
+- Provides structured triage levels (Red/Yellow/Green/Black)
+- Generates specific action recommendations
 
-**A:** Your agent should handle tasks relevant to its role such as: data processing, decision making, communication with other agents, and providing actionable information to human operators.
+### First Aid Guidance
 
-**Q: Can I add new dependencies?**
+- Step-by-step first aid instructions
+- Resource-aware recommendations based on available supplies
+- Clear warnings and contraindications
+- Monitoring guidelines
 
-**A:** Yes, you can add new Python packages to requirements.txt as needed for your implementation.
+### Vital Signs Monitoring
+
+- Analyzes vital sign data
+- Provides monitoring frequency recommendations
+- Defines alert thresholds
+- Considers medical history when available
+
+### Medical Handoff Reports
+
+- Generates structured SBAR reports
+- Ensures critical information transfer
+- Includes relevant intervention history
+- Provides clear recommendations
+
+### Evacuation Guidance
+
+- Terrain-aware evacuation recommendations
+- Resource requirement specifications
+- Special considerations for patient conditions
+- Clear contraindications
 
 
-### Technical Questions
+## Issues
 
-**Q: Why am I getting API key errors?**
-
-**A:** Ensure you've properly set up your .env file and obtained valid API keys from the services listed above.
-
-**Q: How do I test my agent?**
-
-**A:** Use the provided test framework in the tests/ directory. Write tests that verify your agent's core functionality.
-
-**Q: Can I use external libraries for my agent?**
-
-**A:** Yes, you can use external libraries as long as they are compatible.
+At this initial stage of the First Aid Guidance Agent, the implementation is not perfect. Due to the variability of the result from Gemini, the python json library is not always able to decode the response and triggers the error case for the agent's function. Future work includes a more in-depth outline of the desired structure of the response from Gemini.
