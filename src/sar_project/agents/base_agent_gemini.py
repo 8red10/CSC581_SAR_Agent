@@ -1,6 +1,7 @@
 from abc import ABC, abstractmethod
 # from google import generativeai as genai
 from google import genai
+from pydantic import BaseModel, TypeAdapter
 
 # from autogen.AssistantAgent 
 DEFAULT_SYSTEM_MESSAGE = """You are a helpful AI assistant.
@@ -27,8 +28,10 @@ class SARBaseAgentGemini():
     def config_gemini(self):
         """Configures a gemini agent for SAR prompts."""
         import os
+        from dotenv import load_dotenv
+        load_dotenv()
         # genai.configure(api_key=os.environ['GEMINI_API_KEY'])
-        return genai.Client(api_key=os.environ["GEMINI_API_KEY"])
+        return genai.Client(api_key=os.getenv("GEMINI_API_KEY"))
     
     def test_prompt(self, prompt):
         """Passes a prompt to the client."""
