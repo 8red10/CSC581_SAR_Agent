@@ -1,5 +1,11 @@
 # Search and Rescue (SAR) First Aid Guidance Agent - CSC 581
 
+## Author
+
+Jack Krammer
+
+February 18, 2025
+
 ## Introduction
 
 A robust Python-based agent designed to provide automated first aid and emergency response guidance using Google's Gemini API. This tool is specifically designed for search and rescue operations, providing structured, reliable emergency medical guidance through natural language processing.
