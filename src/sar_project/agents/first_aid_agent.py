@@ -18,15 +18,21 @@ class FirstAidGuidanceAgent(SARBaseAgentGemini):
         )
 
     def get_name(self):
-        """Return name"""
+        """
+        Returns name.
+        """
         return self.name
 
     def get_role(self):
-        """Return role"""
+        """
+        Returns role.
+        """
         return self.role
     
     def get_system_message(self):
-        """Return system message used to give context to the gemini client"""
+        """
+        Returns system message used to give context to the gemini client.
+        """
         return self.system_message
 
     def assess_scene_safety(self, scene_description: str) -> Dict[str, any]:

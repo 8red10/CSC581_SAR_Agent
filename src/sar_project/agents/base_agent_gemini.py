@@ -26,7 +26,9 @@ class SARBaseAgentGemini():
         self.model = self.config_gemini()
 
     def config_gemini(self):
-        """Configures a gemini agent for SAR prompts."""
+        """
+        Configures a gemini agent for SAR prompts.
+        """
         import os
         from dotenv import load_dotenv
         load_dotenv()
@@ -37,7 +39,9 @@ class SARBaseAgentGemini():
         # return genai.GenerativeModel("gemini-pro")
     
     def test_prompt(self, prompt):
-        """Passes a prompt to a gemini client - for testing purposes."""
+        """
+        Passes a prompt to a gemini client - for testing purposes.
+        """
         try:
             response = self.client.models.generate_content(
                 # model="gemini-2.0-flash",
@@ -49,20 +53,28 @@ class SARBaseAgentGemini():
             return {"error": str(e)}
         
     def query_gemini(self, prompt: str) -> str:
-        """Passes a prompt to a gemini client and returns the response as text."""
+        """
+        Passes a prompt to a gemini client and returns the response as text.
+        """
         response = self.model.generate_content(prompt)
         return response.text
 
     @abstractmethod
     def process_request(self, message):
-        """Process incoming requests - must be implemented by specific agents"""
+        """
+        Process incoming requests - must be implemented by specific agents.
+        """
         pass
 
     def update_status(self, status):
-        """Update agent's mission status"""
+        """
+        Update agent's mission status.
+        """
         self.mission_status = status
         return {"status": "updated", "new_status": status}
 
     def get_status(self):
-        """Return current status"""
+        """
+        Return current status.
+        """
         return self.mission_status
