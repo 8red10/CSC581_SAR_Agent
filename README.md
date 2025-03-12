@@ -9,7 +9,7 @@ by Jack Krammer on March 11, 2025 for Cal Poly CSC 581
 
 An intelligent First Aid Guidance Agent to support the Cal Poly AI4S&R (AI for search and rescue) project. Designed to provide reliable JSON structured first aid and emergency response information using Google's Gemini API. 
 
-The basis of this project is built upon Riley Froomin's GitHub repository (https://github.com/rcfroomin/sar_project). More details and instructions for creating your own SAR agent are included in the linked repository. 
+The basis of this project is built upon Riley Froomin's GitHub repository (https://github.com/rcfroomin/sar_project). More details and instructions for creating your own SAR agent are included there. 
 
 
 ## Setup and Installation
@@ -63,9 +63,9 @@ Make sure to keep your `.env` file private and never commit it to version contro
 5. Setup Google Gemini:
 
 ```
-# via command line
+# first install dependencies via command line
 pip install google-generativeai
-# in the agent's python file
+# then include library and configure in the agent's python file
 from google import generativeai as genai
 genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 ```
@@ -73,7 +73,7 @@ genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
 Utilize the `base_agent_gemini.py` file in `sar_project/src/sar_project/agents/` to help setup your agent.
 
 
-## Agent Functionality
+## First Aid Guidance Agent Functionality
 
 #### 1. Scene Safety Assessment
 
@@ -120,12 +120,12 @@ Utilize the `base_agent_gemini.py` file in `sar_project/src/sar_project/agents/`
 
 ## Feedback and Modifications
 
-### Insights
+#### 1. Insights
 
 After reviewing the feedback from my initial version of this First Aid Guidance agent, I learned that it would be valuable to incorporate a validation mechanism to ensure the Gemini responses are accurate and useful in a real-world scenario. The person giving feedback suggested utilizing a verified medical knowledge base or feedback loop to check generated responses against verified medical guidelines. As I initially inteded to have a reliable agent that would be useful in a wide variety of scenarios, validation mechanisms such as these would help improve the robustness of this agent. 
 
 
-### Modifications
+#### 2. Modifications
 
 As a result of the feedback I received, I incorporated a feedback loop for the first aid guidance agent to check its responses. For each of the agent's functions, the agent first prompts Gemini to get an initial response, then re-prompts Gemini with the initial response and additional context to assess the validity of the initial response. The response along with its assessment is then passed to the user in a JSON object structure. This enables the agent to not only revise its initial response but also give insight to the user on the validity of the response. This provides increased reliability of the responses as the user can read how the initial response was assessed before either moving forward or prompting the agent again.
 
