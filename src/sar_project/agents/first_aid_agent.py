@@ -34,6 +34,37 @@ class FirstAidGuidanceAgent(SARBaseAgentGemini):
         Returns system message used to give context to the gemini client.
         """
         return self.system_message
+    
+    def analyze_response(self, og_prompt: str, response: str) -> bool:
+        """
+        Analyzes Gemini response using a feedback loop to verify results with gemini.
+        """
+        analysis_context = """
+        Given the prompt and response below, assess the ability of this generative AI agent
+        to fulfill the goals of a first aid guidance agent that provides relevant information.
+        Combine the assessment with the original JSON object response in a concise manner
+        directed at the user of the first aid guidance agent using the structure:
+        {
+            "overall_assessment": boolean,
+            "assessment_details": "complete assessment here"
+            "original_response": { original JSON object response }
+        }
+
+        Prompt: """
+
+        full_prompt = FIRST_AID_SYSTEM_MESSAGE + analysis_context + og_prompt + "\n\nResponse: " + response
+        analysis = self.query_gemini(full_prompt)
+        print('\n\nanalysis of response: \n' + analysis + '\n\n')
+
+        try:
+            return json.loads(analysis[8:-3])
+            # return json.loads(analysis)
+        except json.JSONDecodeError:
+            return {
+                "overall_assessment_validity": False,
+                "assessment_details": "Unable to parse scene safety assessment",
+                "original_response": { None }
+            }
 
     def assess_scene_safety(self, scene_description: str) -> Dict[str, any]:
         """
@@ -56,6 +87,8 @@ class FirstAidGuidanceAgent(SARBaseAgentGemini):
         
         full_prompt = context_prompt + scene_description
         response = self.query_gemini(full_prompt)
+
+        return self.analyze_response(full_prompt,response)
         
         try:
             # return json.loads(response[8:-3])
