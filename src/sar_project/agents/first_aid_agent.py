@@ -124,7 +124,8 @@ class FirstAidGuidanceAgent(SARBaseAgentGemini):
             full_prompt = context_prompt + description
             response = self.query_gemini(full_prompt)
             try:
-                triage_results.append(json.loads(response))
+                # triage_results.append(json.loads(response))
+                triage_results.append(json.loads(self.analyze_response(full_prompt,response)))
             except json.JSONDecodeError:
                 triage_results.append({
                     "triage_level": "Red",
@@ -133,7 +134,7 @@ class FirstAidGuidanceAgent(SARBaseAgentGemini):
                     "priority_score": 1
                 })
         
-        return sorted(triage_results, key=lambda x: x['priority_score'])
+        return sorted(triage_results, key=lambda x: x['original_response']['priority_score'])
 
     def provide_first_aid_guidance(self, injury_description: str, available_supplies: List[str]) -> Dict[str, any]:
         """
@@ -157,6 +158,8 @@ class FirstAidGuidanceAgent(SARBaseAgentGemini):
         
         full_prompt = context_prompt + injury_description
         response = self.query_gemini(full_prompt)
+
+        return self.analyze_response(full_prompt,response)
         
         try:
             return json.loads(response)
@@ -192,6 +195,8 @@ class FirstAidGuidanceAgent(SARBaseAgentGemini):
         """
         
         response = self.query_gemini(context_prompt)
+
+        return self.analyze_response(context_prompt,response)
         
         try:
             return json.loads(response)
@@ -244,6 +249,8 @@ class FirstAidGuidanceAgent(SARBaseAgentGemini):
         
         full_prompt = context_prompt + patient_condition
         response = self.query_gemini(full_prompt)
+
+        return self.analyze_response(full_prompt,response)
         
         try:
             return json.loads(response)
