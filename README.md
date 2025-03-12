@@ -1,4 +1,4 @@
-# First Aid Guidance Agent - Search and Rescue Applications
+# First Aid Guidance Agent - Search and Rescue
 
 ## Author
 
@@ -19,6 +19,7 @@ The basis of this project is built upon Riley Froomin's GitHub repository (https
 - Python 3.8 or higher
 - pyenv (recommended for python version management)
 - pip (for dependency management)
+- Google Gemini API Key (obtain at https://aistudio.google.com/apikey)
 
 ### Setup
 
@@ -31,9 +32,45 @@ cd sar-project
 
 2. Set up Python environment:
 
-asdfasdfs
+```
+# Using pyenv (recommended)
+pyenv install 3.10.8  # or your preferred version
+pyenv local 3.10.8
 
+# Create and activate virtual environment
+python -m venv .venv
+source .venv/bin/activate  # On Unix/macOS
+# or
+.venv\Scripts\activate     # On Windows
+```
 
+3. Install dependencies:
+
+```
+pip install -r requirements.txt
+pip install -e .
+```
+
+4. Configure environment variables:
+
+```
+echo '.env.' >> .gitignore
+echo 'GOOGLE_API_KEY=<your google gemini API key>' >> .env
+```
+
+Make sure to keep your `.env` file private and never commit it to version control.
+
+5. Setup Google Gemini:
+
+```
+# via command line
+pip install google-generativeai
+# in the agent's python file
+from google import generativeai as genai
+genai.configure(api_key=os.getenv("GOOGLE_API_KEY"))
+```
+
+Utilize the `base_agent_gemini.py` file in `sar_project/src/sar_project/agents/` to help setup your agent.
 
 
 ## Agent Functionality
@@ -81,9 +118,21 @@ asdfasdfs
 - Clear contraindications
 
 
+## Feedback and Modifications
+
+### Insights
+
+After reviewing the feedback from my initial version of this First Aid Guidance agent, I learned that it would be valuable to incorporate a validation mechanism to ensure the Gemini responses are accurate and useful in a real-world scenario. The person giving feedback suggested utilizing a verified medical knowledge base or feedback loop to check generated responses against verified medical guidelines. As I initially inteded to have a reliable agent that would be useful in a wide variety of scenarios, validation mechanisms such as these would help improve the robustness of this agent. 
+
+
+### Modifications
+
+As a result of the feedback I received, I incorporated a feedback loop for the first aid guidance agent to check its responses. For each of the agent's functions, the agent first prompts Gemini to get an initial response, then re-prompts Gemini with the initial response and additional context to assess the validity of the initial response. The response along with its assessment is then passed to the user in a JSON object structure. This enables the agent to not only revise its initial response but also give insight to the user on the validity of the response. This provides increased reliability of the responses as the user can read how the initial response was assessed before either moving forward or prompting the agent again.
+
+
 ## Issues
 
-At this initial stage of the First Aid Guidance Agent, the implementation is not perfect. Due to the variability of the result from Gemini, the python json library is not always able to decode the response and triggers the error case for the agent's function. Future work includes a more in-depth outline of the desired structure of the response from Gemini.
+At this initial stage of the First Aid Guidance Agent, the implementation is not perfect. Due to the variability of the result from Gemini, the python json library is not always able to decode the response and triggers the error case for the agent's function. Future work includes a more in-depth outline of the desired structure of the response from Gemini. The current implementation expects a leading \```json and a trailing \``` so it extracts the JSON object via ```json.loads(response[8:-3])```.
 
 
 ## Important Notice
